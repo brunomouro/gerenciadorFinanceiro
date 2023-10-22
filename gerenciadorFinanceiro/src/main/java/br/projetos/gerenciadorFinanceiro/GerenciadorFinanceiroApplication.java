@@ -8,6 +8,8 @@ public class GerenciadorFinanceiroApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(GerenciadorFinanceiroApplication.class, args);
+		
+		System.out.println("Ola mundo");
 	}
 
 }
