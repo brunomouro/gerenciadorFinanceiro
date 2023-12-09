@@ -1,8 +1,9 @@
 package br.projetos.gerenciadorFinanceiro.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
-import br.projetos.gerenciadorFinanceiro.dto.LancamentoDTO;
 import br.projetos.gerenciadorFinanceiro.model.Lancamento;
 import br.projetos.gerenciadorFinanceiro.repository.LancamentoRepository;
 
@@ -16,8 +17,16 @@ public class LancamentoService {
 	}
 
 	public Lancamento incluirLancamento(Lancamento lancamento) {
-		lancamentoRepository.save(lancamento);
-		return null;
+		return lancamentoRepository.save(lancamento);
+	}
+
+	public List<Lancamento> listaLancamentos() {
+		return lancamentoRepository.findAll();
+	}
+
+	public Lancamento consultaLancamento(Long id) {
+		return lancamentoRepository.findById(id).get();
+		
 	}
 
 }
