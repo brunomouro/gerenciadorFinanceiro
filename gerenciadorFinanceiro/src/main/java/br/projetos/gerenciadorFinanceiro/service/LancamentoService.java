@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import br.projetos.gerenciadorFinanceiro.exception.RecordNotFoundExcepttion;
 import br.projetos.gerenciadorFinanceiro.model.Lancamento;
 import br.projetos.gerenciadorFinanceiro.repository.LancamentoRepository;
 
@@ -25,8 +26,27 @@ public class LancamentoService {
 	}
 
 	public Lancamento consultaLancamento(Long id) {
-		return lancamentoRepository.findById(id).get();
+		return lancamentoRepository.findById(id)
+				.orElseThrow(() -> new RecordNotFoundExcepttion(id));
 		
+	}
+
+	public Lancamento alteraLancamento(Long id, Lancamento lancamento ) {
+		return lancamentoRepository.findById(id)
+				.map( recordFound -> {
+					recordFound.setCartao( lancamento.getCartao() );
+					recordFound.setCategoria( lancamento.getCategoria() );
+					recordFound.setData( lancamento.getData() );
+					recordFound.setDescricao( lancamento.getDescricao() );
+					recordFound.setValor( lancamento.getValor() );
+					return lancamentoRepository.save( recordFound );
+				}).orElseThrow(() -> new RecordNotFoundExcepttion(id) );
+	}
+
+	public void excluiLancamento(Long id) {
+		lancamentoRepository.delete( lancamentoRepository.findById( id )
+				.orElseThrow( () -> new RecordNotFoundExcepttion(id)) );
+
 	}
 
 }
