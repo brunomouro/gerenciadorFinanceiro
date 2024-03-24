@@ -7,6 +7,10 @@ public class RecordNotFoundExcepttion extends RuntimeException {
 	public RecordNotFoundExcepttion(Long id) {
 		super("Registro nao encontrado com o id: " + id);
 	}
+	
+	public RecordNotFoundExcepttion() {
+		super("Registros nao encontrados");
+	}
 
 	
 }
