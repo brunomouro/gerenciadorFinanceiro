@@ -3,7 +3,10 @@ package br.projetos.gerenciadorFinanceiro.model;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
+import br.projetos.gerenciadorFinanceiro.enums.Status;
+import br.projetos.gerenciadorFinanceiro.enums.converters.StatusConverter;
 import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
 import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -38,4 +41,8 @@ public abstract class Categoria {
 	@NotNull	
 	@Column(length = 20)
 	private String nome;
+	
+	@Column(length = 10)
+	@Convert(converter = StatusConverter.class)
+	private Status status = Status.ATIVO;
 }
