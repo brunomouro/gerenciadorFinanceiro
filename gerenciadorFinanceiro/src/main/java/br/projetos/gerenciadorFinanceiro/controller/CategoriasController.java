@@ -14,8 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.projetos.gerenciadorFinanceiro.model.Categoria;
-import br.projetos.gerenciadorFinanceiro.model.Despesa;
+import br.projetos.gerenciadorFinanceiro.dto.CategoriaDTO;
 import br.projetos.gerenciadorFinanceiro.service.CategoriaService;
 
 @RestController
@@ -31,17 +30,17 @@ public class CategoriasController {
 	
 	@PostMapping
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public Categoria incluirDespesa( @RequestBody Categoria categoria ) {
+	public CategoriaDTO incluirDespesa( @RequestBody CategoriaDTO categoria ) {
 		return categoriaService.incluirCategoria( categoria );
 	}
 	
 	@GetMapping
-	public List<Categoria> listaCategorias(){
+	public List<CategoriaDTO> listaCategorias(){
 		return categoriaService.listaCategorias();
 	}
 	
 	@GetMapping("{id}")
-	public Categoria consultaCategoria( @PathVariable Long id ) {
+	public CategoriaDTO consultaCategoria( @PathVariable Long id ) {
 		return categoriaService.consultaCategoria( id );
 	}
 	
@@ -51,7 +50,7 @@ public class CategoriasController {
 	}
 	
 	@PutMapping("/despesa/{id}")
-	public Categoria alteraDespesa( @RequestBody Despesa despesa, @PathVariable Long id ) {
-		return categoriaService.alteraDespesa( id, despesa );
+	public CategoriaDTO alteraDespesa( @RequestBody CategoriaDTO categoria, @PathVariable Long id ) {
+		return categoriaService.alteraCategoria( id, categoria );
 	}
 }

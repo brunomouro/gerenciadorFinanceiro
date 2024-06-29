@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.projetos.gerenciadorFinanceiro.model.Lancamento;
+import br.projetos.gerenciadorFinanceiro.dto.LancamentoDTO;
 import br.projetos.gerenciadorFinanceiro.service.LancamentoService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
@@ -32,22 +32,22 @@ public class LancamentosController {
 	
 	@PostMapping
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public Lancamento incluirLancamento( @RequestBody @Valid Lancamento lancamento ) {
+	public LancamentoDTO incluirLancamento( @RequestBody @Valid LancamentoDTO lancamento ) {
 		return lancamentoService.incluirLancamento(lancamento);
 	}
 	
 	@GetMapping
-	public List<Lancamento> listaLancamentos(){
+	public List<LancamentoDTO> listaLancamentos(){
 		return lancamentoService.listaLancamentos();
 	}
 	
 	@GetMapping("/{id}")
-	public Lancamento consultaLancamento( @PathVariable @Positive Long id ) {
+	public LancamentoDTO consultaLancamento( @PathVariable @Positive Long id ) {
 		return lancamentoService.consultaLancamento( id );
 	}
 	
 	@PutMapping("/{id}")
-	public Lancamento alteraLancamento( @RequestBody @Valid Lancamento lancamento, @PathVariable @Positive Long id ) {
+	public LancamentoDTO alteraLancamento( @RequestBody @Valid LancamentoDTO lancamento, @PathVariable @Positive Long id ) {
 		return lancamentoService.alteraLancamento( id, lancamento );
 	}
 	
