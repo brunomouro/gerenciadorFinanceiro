@@ -1,5 +1,6 @@
 package br.projetos.gerenciadorFinanceiro.dto;
 
+import br.projetos.gerenciadorFinanceiro.model.Cartao;
 import br.projetos.gerenciadorFinanceiro.model.Categoria;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
@@ -11,6 +12,6 @@ public record LancamentoDTO( @Id Long id,
 							 @NotBlank @NotNull String descricao, 
 							 @Positive double valor, 
 						  	 Categoria categoria, 
-						  	 int cartao) {
+						  	 Cartao cartao) {
 
 }

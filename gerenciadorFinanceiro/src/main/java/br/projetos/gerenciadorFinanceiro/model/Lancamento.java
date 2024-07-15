@@ -42,7 +42,8 @@ public class Lancamento {
 	@JoinColumn(name = "categoria_id")
 	private Categoria categoria;
 	
-	@Column(length = 3)
-	private int cartao;
+	@ManyToOne
+	@JoinColumn(name = "cartao_id")
+	private Cartao cartao;
 
 }
