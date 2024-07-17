@@ -42,10 +42,10 @@ public class CartaoController {
 		return cartaoService.consultaCartao( id );
 	}
 	
-	@DeleteMapping("{id}")
-	public void excluiCartao( @PathVariable Long id ) {
-		cartaoService.excluiCartao( id );
-	}
+//	@DeleteMapping("{id}")
+//	public void excluiCartao( @PathVariable Long id ) {
+//		cartaoService.excluiCartao( id );
+//	}
 	
 	@PutMapping("/despesa/{id}")
 	public CartaoDTO alteraDespesa( @RequestBody CartaoDTO cartao, @PathVariable Long id ) {
