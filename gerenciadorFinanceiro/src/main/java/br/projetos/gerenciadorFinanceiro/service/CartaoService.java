@@ -2,11 +2,14 @@ package br.projetos.gerenciadorFinanceiro.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import br.projetos.gerenciadorFinanceiro.dto.CartaoDTO;
 import br.projetos.gerenciadorFinanceiro.dto.mapper.CartaoMapper;
 import br.projetos.gerenciadorFinanceiro.exception.RecordNotFoundExcepttion;
 import br.projetos.gerenciadorFinanceiro.repository.CartaoRepository;
 
+@Service
 public class CartaoService {
 	
 	private final CartaoRepository cartaoRepository;

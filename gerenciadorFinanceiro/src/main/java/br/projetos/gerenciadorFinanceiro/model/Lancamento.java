@@ -1,7 +1,9 @@
 package br.projetos.gerenciadorFinanceiro.model;
 
+import br.projetos.gerenciadorFinanceiro.valids.ValidDate;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -24,9 +26,9 @@ public class Lancamento {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
-	@NotBlank
 	@NotNull
-	@Column(length = 10)
+	@NotBlank
+	@ValidDate(message = "Data deve ser no formato dd-MM-yyyy", pattern = "dd/MM/yyyy")
 	private String data;
 	
 	@Positive
@@ -38,7 +40,7 @@ public class Lancamento {
 	@Column(length = 100)
 	private String descricao;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "categoria_id")
 	private Categoria categoria;
 	

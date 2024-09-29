@@ -4,11 +4,14 @@ import org.hibernate.annotations.SQLDelete;
 
 import br.projetos.gerenciadorFinanceiro.enums.Status;
 import br.projetos.gerenciadorFinanceiro.enums.converters.StatusConverter;
+import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Entity
@@ -20,6 +23,9 @@ public class Cartao {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
+	@NotBlank
+	@NotNull
+	@Column(length = 30)
 	private String nome;
 	
 	@Convert(converter = StatusConverter.class)

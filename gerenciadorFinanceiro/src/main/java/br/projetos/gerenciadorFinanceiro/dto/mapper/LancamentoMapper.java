@@ -12,12 +12,13 @@ public class LancamentoMapper {
         if (lancamento == null) {
             return null;
         }
+        
         return new LancamentoDTO(lancamento.getId(), 
         						 lancamento.getData(),
         						 lancamento.getDescricao(),
         						 lancamento.getValor(), 
-        						 lancamento.getCategoria(), 
-        						 lancamento.getCartao());
+        						 CategoriaMapper.toDTO(lancamento.getCategoria()), 
+        						 CartaoMapper.toDTO(lancamento.getCartao()));
     }
 
     public Lancamento toEntity(LancamentoDTO lancamentoDTO) {
@@ -34,8 +35,8 @@ public class LancamentoMapper {
         lancamento.setData(lancamentoDTO.data());
         lancamento.setDescricao(lancamentoDTO.descricao());
         lancamento.setValor(lancamentoDTO.valor());
-        lancamento.setCategoria(lancamentoDTO.categoria());
-        lancamento.setCartao(lancamentoDTO.cartao());
+        lancamento.setCategoria(CategoriaMapper.toEntity(lancamentoDTO.categoria()));
+        lancamento.setCartao(CartaoMapper.toEntity(lancamentoDTO.cartao()));
 
         return lancamento;
     }
