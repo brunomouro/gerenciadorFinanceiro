@@ -1,13 +1,13 @@
 package br.projetos.gerenciadorFinanceiro.controller;
 
 import java.sql.SQLException;
-import java.time.format.DateTimeParseException;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import br.projetos.gerenciadorFinanceiro.exception.RecordNotFoundExcepttion;
 import jakarta.validation.ConstraintViolationException;
@@ -43,10 +43,15 @@ public class ApplicationControllerAdvice {
 		return ex.getMessage();
 	}
 	
-	@ExceptionHandler(DateTimeParseException.class)
+	@ExceptionHandler(MethodArgumentTypeMismatchException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	public String handleDateTimeParseException(DateTimeParseException ex ) {
-		return "Data '" + ex.getParsedString() + "' em formato invalido (dd-MM-yyyy)";
+	public String handleMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException ex) {
+		if (ex != null && ex.getRequiredType() != null) {
+			String type = ex.getRequiredType().getName();
+			String[] typeParts = type.split("\\.");
+			String typeName = typeParts[typeParts.length - 1];
+			return ex.getName() + " deve ser do tipo " + typeName;
+		}
+		return "Tipo do argumento não é valido";
 	}
-
 }

@@ -11,6 +11,10 @@ public class RecordNotFoundExcepttion extends RuntimeException {
 	public RecordNotFoundExcepttion() {
 		super("Registros nao encontrados");
 	}
+	
+	public RecordNotFoundExcepttion(String campo, Long id) {
+		super("Nao existe " + campo + " com o id: " + id);
+	}
 
 	
 }

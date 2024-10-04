@@ -36,17 +36,24 @@ public class LancamentoService {
 	}
 
 	public LancamentoDTO incluirLancamento(LancamentoDTO lancamento) {
-		Categoria categoria = categoriaRepository.findById(lancamento.categoria().getId())
-							   					 .orElseThrow(()-> new RecordNotFoundExcepttion(lancamento.categoria().getId()));
+		Categoria categoria = null;
+		Cartao cartao = null;
 		
-		Cartao cartao = cartaoRepository.findById(lancamento.cartao().id())
-                                           .orElseThrow(()-> new RecordNotFoundExcepttion(lancamento.categoria().getId()));
+		if ( lancamento.categoria() != null) {
+			categoria = categoriaRepository.findById(lancamento.categoria().getId())
+										   .orElseThrow(()-> new RecordNotFoundExcepttion("Categoria", lancamento.categoria().getId()));
+		}
+		
+		if (lancamento.cartao().id() != null ) {
+			cartao = cartaoRepository.findById(lancamento.cartao().id())
+									 .orElseThrow(()-> new RecordNotFoundExcepttion("Cartão", lancamento.cartao().id()));
+		}
 		
 		Lancamento lanc = mapper.toEntity(lancamento);
 		lanc.setCategoria(categoria);
 		lanc.setCartao(cartao);		
 		
-		return  mapper.toDTO(lancamentoRepository.save(lanc));
+		return mapper.toDTO(lancamentoRepository.save(lanc));
 	}
 
 	public List<LancamentoDTO> listaLancamentos() {
@@ -83,7 +90,6 @@ public class LancamentoService {
 	public void excluiLancamento(Long id) {
 		lancamentoRepository.delete( lancamentoRepository.findById( id )
 				.orElseThrow( () -> new RecordNotFoundExcepttion(id)) );
-
 	}
 
 }

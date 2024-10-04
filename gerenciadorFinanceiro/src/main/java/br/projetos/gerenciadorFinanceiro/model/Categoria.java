@@ -1,5 +1,7 @@
 package br.projetos.gerenciadorFinanceiro.model;
 
+import org.hibernate.annotations.SQLRestriction;
+
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
@@ -33,6 +35,7 @@ import lombok.Data;
 @DiscriminatorColumn(name = "tipo")
 @Data
 @Table(name = "categoria")
+@SQLRestriction("status <> 'Inativo'")
 public abstract class Categoria {
 	
 	@Id

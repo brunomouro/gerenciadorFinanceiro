@@ -38,7 +38,7 @@ public class CartaoController {
 	}
 	
 	@GetMapping("{id}")
-	public CartaoDTO consultaCategoria( @PathVariable Long id ) {
+	public CartaoDTO consultaCartao( @PathVariable Long id ) {
 		return cartaoService.consultaCartao( id );
 	}
 	
@@ -47,8 +47,8 @@ public class CartaoController {
 		cartaoService.excluiCartao( id );
 	}
 	
-	@PutMapping("/despesa/{id}")
-	public CartaoDTO alteraDespesa( @RequestBody CartaoDTO cartao, @PathVariable Long id ) {
+	@PutMapping("{id}")
+	public CartaoDTO alteraCartao( @RequestBody CartaoDTO cartao, @PathVariable Long id ) {
 		return cartaoService.alteraCartao( id, cartao );
 	}
 
