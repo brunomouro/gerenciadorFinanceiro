@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 
 import br.projetos.gerenciadorFinanceiro.dto.CategoriaDTO;
 import br.projetos.gerenciadorFinanceiro.dto.DespesaDTO;
+import br.projetos.gerenciadorFinanceiro.dto.DespesaDTOOut;
+import br.projetos.gerenciadorFinanceiro.dto.MetaDespesaDTO;
 import br.projetos.gerenciadorFinanceiro.dto.ReceitaDTO;
 import br.projetos.gerenciadorFinanceiro.dto.mapper.CategoriaMapper;
 import br.projetos.gerenciadorFinanceiro.exception.RecordNotFoundExcepttion;
@@ -51,7 +53,6 @@ public class CategoriaService {
         	DespesaDTO ddto = (DespesaDTO) categoria;
         	Despesa despesa = (Despesa) c;
         	despesa.setNome( ddto.getNome() );
-        	despesa.setMeta( ddto.getMeta() );
         	return CategoriaMapper.toDTO(categoriaRepository.save(despesa));
         }else {
         	if (c instanceof Receita) {
@@ -66,9 +67,17 @@ public class CategoriaService {
 	}
 
 	public void excluiCategoria(Long id) {
-		categoriaRepository.delete(
-				categoriaRepository.findById(id)
-				.orElseThrow(()-> new RecordNotFoundExcepttion()));
+		categoriaRepository.delete(categoriaRepository.findById(id)
+													  .orElseThrow(()-> new RecordNotFoundExcepttion()));
+	}
+
+	public DespesaDTOOut atualizaMetaDespesa(Long id, MetaDespesaDTO meta) {
+		Despesa despesa = (Despesa) categoriaRepository.findById(id)
+						   					           .orElseThrow(()-> new RecordNotFoundExcepttion());
+		
+		despesa.setMeta(meta.valorMeta());
+		
+		return CategoriaMapper.toDTOOut(categoriaRepository.save(despesa));
 	}
 
 }

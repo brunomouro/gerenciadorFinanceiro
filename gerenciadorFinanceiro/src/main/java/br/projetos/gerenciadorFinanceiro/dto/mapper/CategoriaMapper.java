@@ -4,6 +4,7 @@ import org.springframework.stereotype.Component;
 
 import br.projetos.gerenciadorFinanceiro.dto.CategoriaDTO;
 import br.projetos.gerenciadorFinanceiro.dto.DespesaDTO;
+import br.projetos.gerenciadorFinanceiro.dto.DespesaDTOOut;
 import br.projetos.gerenciadorFinanceiro.dto.ReceitaDTO;
 import br.projetos.gerenciadorFinanceiro.model.Categoria;
 import br.projetos.gerenciadorFinanceiro.model.Despesa;
@@ -33,11 +34,7 @@ public class CategoriaMapper {
 			return null;
 		}
 
-		return new DespesaDTO(
-				despesa.getId(),
-				despesa.getNome(),
-				despesa.getMeta()
-				);
+		return new DespesaDTO(despesa.getId(), despesa.getNome());
 	}
 
 	public static ReceitaDTO toDTO(Receita receita) {
@@ -73,7 +70,6 @@ public class CategoriaMapper {
 		Despesa despesa = new Despesa();
 		despesa.setId(dto.getId());
 		despesa.setNome(dto.getNome());
-		despesa.setMeta(dto.getMeta());
 		return despesa;
 	}
 
@@ -86,6 +82,10 @@ public class CategoriaMapper {
 		receita.setId(dto.getId());
 		receita.setNome(dto.getNome());
 		return receita;
+	}
+
+	public static DespesaDTOOut toDTOOut(Despesa despesa) {
+		return new DespesaDTOOut(despesa.getId(), despesa.getNome(), despesa.getMeta());
 	}
 }
 

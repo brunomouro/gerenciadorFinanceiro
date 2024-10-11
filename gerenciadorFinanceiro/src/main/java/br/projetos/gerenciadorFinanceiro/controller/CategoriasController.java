@@ -15,7 +15,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.projetos.gerenciadorFinanceiro.dto.CategoriaDTO;
+import br.projetos.gerenciadorFinanceiro.dto.DespesaDTOOut;
+import br.projetos.gerenciadorFinanceiro.dto.MetaDespesaDTO;
 import br.projetos.gerenciadorFinanceiro.service.CategoriaService;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/categoria")
@@ -49,8 +52,13 @@ public class CategoriasController {
 		categoriaService.excluiCategoria( id );
 	}
 	
-	@PutMapping("/despesa/{id}")
-	public CategoriaDTO alteraDespesa( @RequestBody CategoriaDTO categoria, @PathVariable Long id ) {
+	@PutMapping("{id}")
+	public CategoriaDTO alteraCategoria( @RequestBody CategoriaDTO categoria, @PathVariable Long id ) {
 		return categoriaService.alteraCategoria( id, categoria );
+	}
+	
+	@PutMapping("/meta/{id}")
+	public DespesaDTOOut atualizaMeta(@RequestBody @Valid MetaDespesaDTO meta, @PathVariable Long id) {
+		return categoriaService.atualizaMetaDespesa(id, meta);
 	}
 }
