@@ -92,4 +92,8 @@ public class LancamentoService {
 				.orElseThrow( () -> new RecordNotFoundExcepttion(id)) );
 	}
 
+	public List<Lancamento> listaLancamentosPorData(String dataInicial, String dataFinal) {
+		return lancamentoRepository.findBydataBetween(dataInicial, dataFinal);
+	}
+
 }

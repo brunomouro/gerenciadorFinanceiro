@@ -79,5 +79,9 @@ public class CategoriaService {
 		
 		return CategoriaMapper.toDTOOut(categoriaRepository.save(despesa));
 	}
+	
+	public List<Categoria> listaDespesas(){
+		return categoriaRepository.findAllDespesas();
+	}
 
 }
