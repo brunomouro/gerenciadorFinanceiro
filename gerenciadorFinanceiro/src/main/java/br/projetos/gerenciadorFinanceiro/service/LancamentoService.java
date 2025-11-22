@@ -2,6 +2,8 @@ package br.projetos.gerenciadorFinanceiro.service;
 
 import java.util.List;
 
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import br.projetos.gerenciadorFinanceiro.dto.LancamentoDTO;
@@ -35,6 +37,7 @@ public class LancamentoService {
 		this.mapper = mapper;
 	}
 
+	@CacheEvict(value = "lancamentos", allEntries = true)
 	public LancamentoDTO incluirLancamento(LancamentoDTO lancamento) {
 		Categoria categoria = null;
 		Cartao cartao = null;
@@ -56,6 +59,7 @@ public class LancamentoService {
 		return mapper.toDTO(lancamentoRepository.save(lanc));
 	}
 
+	@Cacheable("lancamentos")
 	public List<LancamentoDTO> listaLancamentos() {
 		List<LancamentoDTO> lancamentos = lancamentoRepository.findAll()
 														   .stream()
@@ -95,5 +99,4 @@ public class LancamentoService {
 	public List<Lancamento> listaLancamentosPorData(String dataInicial, String dataFinal) {
 		return lancamentoRepository.findBydataBetween(dataInicial, dataFinal);
 	}
-
 }

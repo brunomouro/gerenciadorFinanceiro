@@ -29,7 +29,14 @@ public class ConfiguracoesSeguranca {
     		.authorizeHttpRequests( req -> {
     			req.requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll();
                 req.requestMatchers(HttpMethod.POST, "/api/auth/register").permitAll();
-    			req.requestMatchers(HttpMethod.POST, "/api/lancamento/inclui-lancamento").hasRole("ADMIN");
+                req.requestMatchers(
+                        "/swagger-ui.html",
+                        "/swagger-ui/**",
+                        "/v3/api-docs/swagger-config",
+                        "/v3/api-docs"
+                    ).permitAll();
+                req.requestMatchers(HttpMethod.POST, "/api/lancamento/inclui-lancamento").hasRole("ADMIN");
+    			req.requestMatchers(HttpMethod.GET, "/api/lancamento/lista-lancamentos").hasRole("ADMIN");
     			req.anyRequest().authenticated();
     		})
     		.addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)

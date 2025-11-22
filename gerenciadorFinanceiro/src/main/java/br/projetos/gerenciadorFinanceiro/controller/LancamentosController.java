@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,12 +25,25 @@ import br.projetos.gerenciadorFinanceiro.controller.modelAssembler.LancamentoMod
 import br.projetos.gerenciadorFinanceiro.controller.modelAssembler.LancamentoModelAssembler;
 import br.projetos.gerenciadorFinanceiro.dto.LancamentoDTO;
 import br.projetos.gerenciadorFinanceiro.service.LancamentoService;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
 
 @RestController
-@RequestMapping("/api/lancamento")
+@RequestMapping(value = "/api/lancamento",
+				produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
 @Validated
+@ApiResponses(value = {
+        @ApiResponse(responseCode = "201", description = "Success", content = @Content(schema = @Schema(implementation = LancamentoDTO.class))),
+	    @ApiResponse(responseCode = "400", description = "Bad request", content = @Content),
+	    @ApiResponse(responseCode = "401", description = "Não autorizado", content = @Content),
+	    @ApiResponse(responseCode = "403", description = "Proibido", content = @Content),
+	    @ApiResponse(responseCode = "404", description = "Não encontrado", content = @Content),
+	    @ApiResponse(responseCode = "500", description = "Erro interno do servidor", content = @Content)
+	})
 public class LancamentosController {
 	
 	private final LancamentoService lancamentoService;

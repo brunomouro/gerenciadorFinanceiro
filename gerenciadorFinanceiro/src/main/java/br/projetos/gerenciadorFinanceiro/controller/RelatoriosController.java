@@ -2,6 +2,7 @@ package br.projetos.gerenciadorFinanceiro.controller;
 
 import java.util.List;
 
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,7 +13,8 @@ import br.projetos.gerenciadorFinanceiro.dto.GastosPorCategoriaDTO;
 import br.projetos.gerenciadorFinanceiro.service.RelatorioService;
 
 @RestController
-@RequestMapping("/api/relatorios")
+@RequestMapping(value = "/api/relatorios",
+				produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
 public class RelatoriosController {
 	
 	private final RelatorioService relatorio;

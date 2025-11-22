@@ -20,6 +20,7 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @JsonTypeInfo(
 	    use = JsonTypeInfo.Id.NAME,
@@ -36,10 +37,11 @@ import lombok.Data;
 @Data
 @Table(name = "categoria")
 @SQLRestriction("status <> 'Inativo'")
+@NoArgsConstructor
 public abstract class Categoria {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
 	@NotBlank
@@ -50,4 +52,10 @@ public abstract class Categoria {
 	@Column(length = 10)
 	@Convert(converter = StatusConverter.class)
 	private Status status = Status.ATIVO;
+	
+	public Categoria(Long id, String nome, Status status) {
+	    this.id = id;
+		this.nome = nome;
+	    this.status = status;
+	}
 }

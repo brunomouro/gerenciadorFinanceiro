@@ -40,9 +40,11 @@ public class RelatorioService {
 				}
 			}
 			
-			totalDisponivel = despesa.getMeta() - totalLancamentos;
+			double valorMeta = despesa.getMeta() == null ? 0 : despesa.getMeta();
 			
-			GastosPorCategoriaDTO dto = new GastosPorCategoriaDTO(despesa.getNome(), totalDisponivel, despesa.getMeta());
+			totalDisponivel = valorMeta - totalLancamentos;
+			
+			GastosPorCategoriaDTO dto = new GastosPorCategoriaDTO(despesa.getNome(), totalDisponivel, valorMeta, totalLancamentos);
 			listaGastosPorCategoria.add(dto);		    
 		}
 		

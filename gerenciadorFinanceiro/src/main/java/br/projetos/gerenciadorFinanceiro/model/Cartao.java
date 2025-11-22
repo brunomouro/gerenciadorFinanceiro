@@ -13,16 +13,20 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
 @SQLDelete(sql = "UPDATE cartao SET status = 'Inativo' WHERE id = ?")
 @SQLRestriction("status <> 'Inativo'")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Cartao {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	@NotBlank

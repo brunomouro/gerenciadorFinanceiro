@@ -3,6 +3,7 @@ package br.projetos.gerenciadorFinanceiro.controller;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,7 +18,8 @@ import br.projetos.gerenciadorFinanceiro.dto.CartaoDTO;
 import br.projetos.gerenciadorFinanceiro.service.CartaoService;
 
 @RestController
-@RequestMapping("/api/cartao")
+@RequestMapping(value = "/api/cartao",
+				produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
 public class CartaoController {
 	
 	private final CartaoService cartaoService;

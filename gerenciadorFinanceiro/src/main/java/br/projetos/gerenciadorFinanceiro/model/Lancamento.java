@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
 public class Lancamento {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
 	@NotNull
