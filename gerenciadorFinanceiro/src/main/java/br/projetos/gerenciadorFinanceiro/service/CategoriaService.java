@@ -72,8 +72,14 @@ public class CategoriaService {
 	}
 
 	public DespesaDTOOut atualizaMetaDespesa(Long id, MetaDespesaDTO meta) {
-		Despesa despesa = (Despesa) categoriaRepository.findById(id)
-						   					           .orElseThrow(()-> new RecordNotFoundExcepttion());
+		Categoria categoria = categoriaRepository.findById(id)
+						   					     .orElseThrow(()-> new RecordNotFoundExcepttion());
+		
+		if (!(categoria instanceof Despesa)) {
+			throw new RecordNotFoundExcepttion("Receita", id);
+		}
+		
+		Despesa despesa = (Despesa) categoria;
 		
 		despesa.setMeta(meta.valorMeta());
 		

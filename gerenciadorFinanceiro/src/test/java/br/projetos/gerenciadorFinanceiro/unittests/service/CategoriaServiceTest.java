@@ -19,6 +19,7 @@ import org.springframework.context.annotation.Description;
 
 import br.projetos.gerenciadorFinanceiro.dto.CategoriaDTO;
 import br.projetos.gerenciadorFinanceiro.dto.DespesaDTO;
+import br.projetos.gerenciadorFinanceiro.dto.MetaDespesaDTO;
 import br.projetos.gerenciadorFinanceiro.dto.ReceitaDTO;
 import br.projetos.gerenciadorFinanceiro.enums.Status;
 import br.projetos.gerenciadorFinanceiro.exception.RecordNotFoundExcepttion;
@@ -141,7 +142,7 @@ public class CategoriaServiceTest {
 		
 		verify(repository, never()).delete(any());		
 	}
-	//TESTE: Exclui categoria com sucesso
+
 	@Test
 	void shouldDeleteCategoriaSucess() {
 	    Despesa despesa = new Despesa();
@@ -154,8 +155,41 @@ public class CategoriaServiceTest {
 	    verify(repository).findById(1L);
 	    verify(repository).delete(despesa);
 	}
-	//TESTE: Atualiza meta de despesa inexistente com erro
+	
+	@Test
+	@Description("Should throws exception when updating goals for categoria not found")
+	void shouldThrowExceptionWhenUpdateExpenseGoalsForCategoriaNotFound() {
+		CategoriaDTO dtoCategoria = new DespesaDTO();
+		dtoCategoria.setId(1L);
+		dtoCategoria.setNome("Fuel");
+		
+		MetaDespesaDTO meta = new MetaDespesaDTO(100.0);
+		
+		assertThatThrownBy(() -> service.atualizaMetaDespesa(dtoCategoria.getId(), meta))
+        .isInstanceOf(RecordNotFoundExcepttion.class);
+		
+		verify(repository, never()).save(any());
+	}
+	
 	//TESTE: Atualiza meta de despesa com ID de categoria de receita
+	@Test
+	@Description( "Should throws exception when updating expense goal for a Receita")
+	void shouldThrowExceptionWhenUpdatingExpenseGoalForCategoriaReceita() {
+		Long id = 1L;
+		
+		Receita receita = new Receita();
+		receita.setId(id);
+		receita.setNome("Salario");
+		
+		when(repository.findById(id)).thenReturn(Optional.of(receita));
+		
+		assertThatThrownBy(() -> service.atualizaMetaDespesa(id, new MetaDespesaDTO(100.0)))
+	    .isInstanceOf(RecordNotFoundExcepttion.class)
+	    .hasMessageContaining("Receita");
+
+		verify(repository, never()).save(any(Despesa.class));
+	}
+	
 	//TESTE: Atualiza meta de despesa com sucesso
 
 }
