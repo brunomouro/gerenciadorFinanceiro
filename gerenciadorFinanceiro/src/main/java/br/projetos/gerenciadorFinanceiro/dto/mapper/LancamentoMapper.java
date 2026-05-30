@@ -8,7 +8,7 @@ import br.projetos.gerenciadorFinanceiro.model.Lancamento;
 @Component
 public class LancamentoMapper {
 	
-    public LancamentoDTO toDTO(Lancamento lancamento) {
+    public static LancamentoDTO toDTO(Lancamento lancamento) {
         if (lancamento == null) {
             return null;
         }
@@ -21,7 +21,7 @@ public class LancamentoMapper {
         						 CartaoMapper.toDTO(lancamento.getCartao()));
     }
 
-    public Lancamento toEntity(LancamentoDTO lancamentoDTO) {
+    public static Lancamento toEntity(LancamentoDTO lancamentoDTO) {
 
         if (lancamentoDTO == null) {
             return null;

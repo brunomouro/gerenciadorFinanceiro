@@ -1,4 +1,4 @@
-package br.projetos.gerenciadorFinanceiro.service;
+package br.projetos.gerenciadorFinanceiro.unittests.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -21,7 +21,6 @@ import br.projetos.gerenciadorFinanceiro.dto.CategoriaDTO;
 import br.projetos.gerenciadorFinanceiro.dto.LancamentoDTO;
 import br.projetos.gerenciadorFinanceiro.dto.mapper.CartaoMapper;
 import br.projetos.gerenciadorFinanceiro.dto.mapper.CategoriaMapper;
-import br.projetos.gerenciadorFinanceiro.dto.mapper.LancamentoMapper;
 import br.projetos.gerenciadorFinanceiro.enums.Status;
 import br.projetos.gerenciadorFinanceiro.exception.RecordNotFoundExcepttion;
 import br.projetos.gerenciadorFinanceiro.model.Cartao;
@@ -31,6 +30,7 @@ import br.projetos.gerenciadorFinanceiro.model.Lancamento;
 import br.projetos.gerenciadorFinanceiro.repository.CartaoRepository;
 import br.projetos.gerenciadorFinanceiro.repository.CategoriaRepository;
 import br.projetos.gerenciadorFinanceiro.repository.LancamentoRepository;
+import br.projetos.gerenciadorFinanceiro.service.LancamentoService;
 
 class LancamentoServiceTest {
 	@Mock
@@ -41,9 +41,6 @@ class LancamentoServiceTest {
 	
     @Mock
 	private CartaoRepository cartaoRepository;
-	
-    @Mock
-	private LancamentoMapper mapper;
     
     @InjectMocks
     private LancamentoService lancamentoService;
@@ -84,12 +81,9 @@ class LancamentoServiceTest {
 	@Test
 	@Description("Cria um novo lancamento com sucesso")
 	void createLancamentoSucess() {
-		
 		when(categoriaRepository.findById(1L)).thenReturn(Optional.of(categoria));
 		when(cartaoRepository.findById(1L)).thenReturn(Optional.of(cartao));
-		when(mapper.toEntity(lancDTO)).thenReturn(lancamento);
 		when(lancamentoRepository.save(lancamento)).thenReturn(lancamento);
-		when(mapper.toDTO(lancamento)).thenReturn(lancDTO);
 		
 		LancamentoDTO result = lancamentoService.incluirLancamento(lancDTO);
 		
@@ -104,8 +98,6 @@ class LancamentoServiceTest {
 		verify(categoriaRepository).findById(1L);
 		verify(cartaoRepository).findById(1L);
 		verify(lancamentoRepository).save(lancamento);
-		verify(mapper).toEntity(lancDTO);
-		verify(mapper).toDTO(lancamento);		
 	}
 	
 	@Test

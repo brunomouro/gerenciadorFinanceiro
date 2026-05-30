@@ -27,12 +27,24 @@ import br.projetos.gerenciadorFinanceiro.dto.CategoriaDTO;
 import br.projetos.gerenciadorFinanceiro.dto.DespesaDTOOut;
 import br.projetos.gerenciadorFinanceiro.dto.MetaDespesaDTO;
 import br.projetos.gerenciadorFinanceiro.service.CategoriaService;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping(value = "/api/categoria",
 				produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE } )
 @Validated
+@ApiResponses(value = {
+        @ApiResponse(responseCode = "201", description = "Success", content = @Content(schema = @Schema(implementation = CategoriaDTO.class))),
+	    @ApiResponse(responseCode = "400", description = "Bad request", content = @Content),
+	    @ApiResponse(responseCode = "401", description = "Não autorizado", content = @Content),
+	    @ApiResponse(responseCode = "403", description = "Proibido", content = @Content),
+	    @ApiResponse(responseCode = "404", description = "Não encontrado", content = @Content),
+	    @ApiResponse(responseCode = "500", description = "Erro interno do servidor", content = @Content)
+	})
 public class CategoriasController {
 
 	private final CategoriaService categoriaService;
@@ -43,22 +55,11 @@ public class CategoriasController {
 		this.modelAssembler = modelAssembler;
 	}
 	
-//	@PostMapping
-//	@ResponseStatus(code = HttpStatus.CREATED)
-//	public CategoriaDTO incluirDespesa( @RequestBody CategoriaDTO categoria ) {
-//		return categoriaService.incluirCategoria( categoria );
-//	}
-	
 	@PostMapping("inclui-categoria")
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public EntityModel<CategoriaModel> incluirDespesa( @RequestBody CategoriaDTO categoria ) {
 		return modelAssembler.toModel(new CategoriaModel(categoriaService.incluirCategoria(categoria), RequestContext.CREATE));
 	}
-	
-//	@GetMapping
-//	public List<CategoriaDTO> listaCategorias(){
-//		return categoriaService.listaCategorias();
-//	}
 	
 	@GetMapping("lista-categorias")
 	public CollectionModel<EntityModel<CategoriaModel>> listaCategorias(){
@@ -69,31 +70,16 @@ public class CategoriasController {
 		return CollectionModel.of(categorias, linkTo(methodOn(CategoriasController.class).listaCategorias()).withSelfRel());
 	}
 	
-//	@GetMapping("{id}")
-//	public CategoriaDTO consultaCategoria( @PathVariable Long id ) {
-//		return categoriaService.consultaCategoria( id );
-//	}
-	
 	@GetMapping("consulta-categoria/{id}")
 	public EntityModel<CategoriaModel> consultaCategoria( @PathVariable Long id ) {
 		return modelAssembler.toModel(new CategoriaModel(categoriaService.consultaCategoria( id ), RequestContext.GET));
 	}
-	
-//	@DeleteMapping("{id}")
-//	public void excluiCategoria( @PathVariable Long id ) {
-//		categoriaService.excluiCategoria( id );
-//	}
 	
 	@DeleteMapping("exclui-categoria/{id}")
 	public EntityModel<CategoriaModel> excluiCategoria( @PathVariable Long id ) {
 		categoriaService.excluiCategoria( id );
 		return modelAssembler.toModel(new CategoriaModel(id, RequestContext.DELETE));
 	}
-	
-//	@PutMapping("{id}")
-//	public CategoriaDTO alteraCategoria( @RequestBody CategoriaDTO categoria, @PathVariable Long id ) {
-//		return categoriaService.alteraCategoria( id, categoria );
-//	}
 	
 	@PutMapping("altera-categoria/{id}")
 	public EntityModel<CategoriaModel> alteraCategoria( @RequestBody CategoriaDTO categoria, @PathVariable Long id ) {

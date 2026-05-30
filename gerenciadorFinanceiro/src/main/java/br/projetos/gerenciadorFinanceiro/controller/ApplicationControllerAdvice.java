@@ -9,7 +9,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
+import br.projetos.gerenciadorFinanceiro.exception.FileNotFoundException;
+import br.projetos.gerenciadorFinanceiro.exception.FileStorageException;
 import br.projetos.gerenciadorFinanceiro.exception.RecordNotFoundExcepttion;
+import br.projetos.gerenciadorFinanceiro.exception.UserAlreadyExistsException;
 import jakarta.validation.ConstraintViolationException;
 
 @RestControllerAdvice
@@ -18,6 +21,12 @@ public class ApplicationControllerAdvice {
 	@ExceptionHandler(RecordNotFoundExcepttion.class)
 	@ResponseStatus(HttpStatus.NOT_FOUND)
 	public String handleRecordNotFoundException(RecordNotFoundExcepttion ex) {
+		return ex.getMessage();
+	}
+	
+	@ExceptionHandler(UserAlreadyExistsException.class)
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	public String handleUserAlredyExistsException(UserAlreadyExistsException ex) {
 		return ex.getMessage();
 	}
 	
@@ -53,5 +62,17 @@ public class ApplicationControllerAdvice {
 			return ex.getName() + " deve ser do tipo " + typeName;
 		}
 		return "Tipo do argumento não é valido";
+	}
+	
+	@ExceptionHandler(FileNotFoundException.class)
+	@ResponseStatus(HttpStatus.NOT_FOUND)
+	public String handleFileNotFoundException(FileNotFoundException ex) {
+		return ex.getMessage();
+	}
+	
+	@ExceptionHandler(FileStorageException.class)
+	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+	public String handleFileStorageException(FileStorageException ex) {
+		return ex.getMessage();
 	}
 }

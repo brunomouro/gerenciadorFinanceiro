@@ -7,6 +7,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.EqualsAndHashCode;
 
 @JsonTypeInfo(
 	    use = JsonTypeInfo.Id.NAME,
@@ -17,6 +18,7 @@ import jakarta.validation.constraints.NotNull;
 	    @JsonSubTypes.Type(value = DespesaDTO.class, name = "despesa"),
 	    @JsonSubTypes.Type(value = ReceitaDTO.class, name = "receita")
 	})
+@EqualsAndHashCode
 public abstract class CategoriaDTO {
 	
 	@Id

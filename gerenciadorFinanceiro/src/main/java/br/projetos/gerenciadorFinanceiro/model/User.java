@@ -10,7 +10,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import br.projetos.gerenciadorFinanceiro.enums.UserRole;
 import br.projetos.gerenciadorFinanceiro.enums.converters.RoleConverter;
-import br.projetos.gerenciadorFinanceiro.enums.converters.StatusConverter;
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
@@ -53,7 +52,7 @@ public class User implements UserDetails {
     }
 
 	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
+	public List<? extends GrantedAuthority> getAuthorities() {
 		if( this.role.equals( UserRole.ADMIN ) ) {
 			return List.of( new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER") );
 		} else {

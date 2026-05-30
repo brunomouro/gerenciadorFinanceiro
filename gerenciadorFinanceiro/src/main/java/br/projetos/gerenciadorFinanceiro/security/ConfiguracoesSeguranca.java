@@ -29,6 +29,7 @@ public class ConfiguracoesSeguranca {
     		.authorizeHttpRequests( req -> {
     			req.requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll();
                 req.requestMatchers(HttpMethod.POST, "/api/auth/register").permitAll();
+                req.requestMatchers(HttpMethod.POST, "/api/auth/refresh").permitAll();
                 req.requestMatchers(
                         "/swagger-ui.html",
                         "/swagger-ui/**",
@@ -50,6 +51,6 @@ public class ConfiguracoesSeguranca {
 
     @Bean
     public PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
+        return new BCryptPasswordEncoder(10);
     }
 }

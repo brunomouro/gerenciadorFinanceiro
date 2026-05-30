@@ -1,4 +1,4 @@
-package br.projetos.gerenciadorFinanceiro.controller.modelAssembler;
+package br.projetos.gerenciadorFinanceiro.unittests.controller.modelAssembler;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityModel;
 
 import br.projetos.gerenciadorFinanceiro.controller.RequestContext;
+import br.projetos.gerenciadorFinanceiro.controller.modelAssembler.LancamentoModel;
+import br.projetos.gerenciadorFinanceiro.controller.modelAssembler.LancamentoModelAssembler;
 import br.projetos.gerenciadorFinanceiro.dto.CartaoDTO;
 import br.projetos.gerenciadorFinanceiro.dto.CategoriaDTO;
 import br.projetos.gerenciadorFinanceiro.dto.LancamentoDTO;

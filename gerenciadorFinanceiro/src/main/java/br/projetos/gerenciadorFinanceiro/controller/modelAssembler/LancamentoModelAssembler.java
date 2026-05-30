@@ -3,6 +3,7 @@ package br.projetos.gerenciadorFinanceiro.controller.modelAssembler;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
+import org.springframework.data.domain.PageRequest;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.stereotype.Component;
@@ -15,10 +16,11 @@ public class LancamentoModelAssembler implements RepresentationModelAssembler<La
 
 	@Override
 	public EntityModel<LancamentoModel> toModel(LancamentoModel entity) {
-		EntityModel<LancamentoModel> lancamentoModel =  EntityModel.of(entity);
+		EntityModel<LancamentoModel> lancamentoModel = EntityModel.of(entity);
 		
-		lancamentoModel.add(linkTo(methodOn(LancamentosController.class).listaLancamentos()).withRel("lista-lancamentos"));
+		lancamentoModel.add(linkTo(methodOn(LancamentosController.class).listaLancamentos(PageRequest.of(0, 10), null)).withRel("lista-lancamentos"));
 		lancamentoModel.add(linkTo(methodOn(LancamentosController.class).incluirLancamento(entity.getLancamento())).withRel("inclui-lancamento"));
+		lancamentoModel.add(linkTo(methodOn(LancamentosController.class).importarLancamentos(null)).withRel("importar-lancamentos").withType("POST"));
 		
 		if(entity.getContext() != RequestContext.DELETE){
 			lancamentoModel.add(linkTo(methodOn(LancamentosController.class).consultaLancamento(entity.getLancamento().id())).withSelfRel());
@@ -28,5 +30,4 @@ public class LancamentoModelAssembler implements RepresentationModelAssembler<La
 		
 		return lancamentoModel;
 	}
-
 }
