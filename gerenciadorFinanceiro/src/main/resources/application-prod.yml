@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+
+logging:
+  level:
+    br.projetos.gerenciadorFinanceiro: INFO
+
+cors:
+  originPatterns: ${ALLOWED_ORIGINS}
+
+file:
+  upload-dir: ${UPLOAD_DIR}

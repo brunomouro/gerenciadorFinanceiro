@@ -1,10 +1,8 @@
 package br.projetos.gerenciadorFinanceiro;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-class GerenciadorFinanceiroApplicationTests {
+class GerenciadorFinanceiroApplicationTests extends AbstractTest{
 
 	@Test
 	void contextLoads() {
