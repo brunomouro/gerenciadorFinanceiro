@@ -7,14 +7,14 @@ import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.MapPropertySource;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.lifecycle.Startables;
 
-@ActiveProfiles("test")
+import br.projetos.gerenciadorFinanceiro.AbstractTest;
+
 @ContextConfiguration(initializers = AbstractIntegrationTest.Initializer.class)
-public abstract class AbstractIntegrationTest {
+public abstract class AbstractIntegrationTest extends AbstractTest{
 
     static class Initializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
 

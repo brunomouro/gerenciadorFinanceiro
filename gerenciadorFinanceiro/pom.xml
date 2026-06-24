@@ -14,10 +14,10 @@
 	<name>demo</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
-		<java.version>17</java.version>
-	    <db.url>jdbc:postgresql://localhost:5432/gerenciadorFinanceiro</db.url>
-	    <db.user>postgres</db.user>
-	    <db.password>postgres</db.password>
+    	<java.version>17</java.version>
+    	<db.url>${env.DB_URL}</db.url>
+    	<db.user>${env.DB_USERNAME}</db.user>
+    	<db.password>${env.DB_PASSWORD}</db.password>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -115,6 +115,11 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
+		<dependency>
+    		<groupId>me.paulschwarz</groupId>
+    		<artifactId>spring-dotenv</artifactId>
+    		<version>4.0.0</version>
 		</dependency>
 	</dependencies>	
 

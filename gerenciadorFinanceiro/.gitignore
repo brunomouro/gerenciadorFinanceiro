@@ -33,19 +33,10 @@ build/
 .vscode/
 
 ### Java ###
-# Compiled class file
 *.class
-
-# Log file
 *.log
-
-# BlueJ files
 *.ctxt
-
-# Mobile Tools for Java (J2ME)
 .mtj.tmp/
-
-# Package Files #
 *.jar
 *.war
 *.nar
@@ -53,14 +44,14 @@ build/
 *.zip
 *.tar.gz
 *.rar
-
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
 
-# Spring
-application.properties
-application.yml
-
-# Docker
+### Docker ###
 *.pid
+
+### Variáveis de ambiente — NUNCA versionar ###
+.env
+
+### Uploads locais (se aplicável) ###
+uploads/

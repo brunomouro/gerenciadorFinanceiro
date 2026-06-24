@@ -1,0 +1,13 @@
+api:
+  security:
+    jwt:
+      secret: my-test-secret
+      access-expiration: 360000
+      refresh-expiration: 360000
+
+spring:
+  flyway:
+    locations: classpath:db/migration,classpath:db/testdata
+
+file:
+  upload-dir: /tmp/test-uploadsO
