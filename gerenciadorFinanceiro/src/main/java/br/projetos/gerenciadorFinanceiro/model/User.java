@@ -1,6 +1,5 @@
 package br.projetos.gerenciadorFinanceiro.model;
 
-import java.util.Collection;
 import java.util.List;
 
 import org.hibernate.annotations.NaturalId;

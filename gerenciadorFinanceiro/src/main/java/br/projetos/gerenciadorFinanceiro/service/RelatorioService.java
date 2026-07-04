@@ -1,5 +1,6 @@
 package br.projetos.gerenciadorFinanceiro.service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,18 +32,18 @@ public class RelatorioService {
 		for (Categoria categoria : categorias) {
 			Despesa despesa = (Despesa) categoria;
 			
-			double totalLancamentos = 0;
-			double totalDisponivel = 0;
+			BigDecimal totalLancamentos = new BigDecimal("0");
+			BigDecimal totalDisponivel;
 			
 			for (Lancamento lancamento : lancamentos) {
 				if(lancamento.getCategoria().getId() == despesa.getId()) {
-					totalLancamentos += lancamento.getValor();
+					totalLancamentos.add(lancamento.getValor());
 				}
 			}
 			
-			double valorMeta = despesa.getMeta() == null ? 0 : despesa.getMeta();
+			BigDecimal valorMeta = despesa.getMeta() == null ? null : despesa.getMeta();
 			
-			totalDisponivel = valorMeta - totalLancamentos;
+			totalDisponivel = valorMeta.subtract(totalLancamentos);
 			
 			GastosPorCategoriaDTO dto = new GastosPorCategoriaDTO(despesa.getNome(), totalDisponivel, valorMeta, totalLancamentos);
 			listaGastosPorCategoria.add(dto);		    

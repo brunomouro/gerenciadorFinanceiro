@@ -1,6 +1,7 @@
 package br.projetos.gerenciadorFinanceiro.service.files.importers.csv;
 
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,7 +51,7 @@ public class LancamentoCsvImporter extends AbstractCsvImporter<LancamentoDTO> {
         	LancamentoDTO lancamento = new LancamentoDTO(Long.parseLong(record.get("id")),
         												 record.get("data"),
         												 record.get("descricao"),
-        												 Double.parseDouble(record.get("valor")),
+        												 new BigDecimal(record.get("valor")),
         												 categoria,
 					 									 new CartaoDTO(Long.parseLong(record.get("id_cartao")),
 					 									 			   record.get("nome_cartao")));

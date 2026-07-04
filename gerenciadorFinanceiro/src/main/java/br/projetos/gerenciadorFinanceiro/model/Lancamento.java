@@ -1,5 +1,7 @@
 package br.projetos.gerenciadorFinanceiro.model;
 
+import java.math.BigDecimal;
+
 import br.projetos.gerenciadorFinanceiro.valids.ValidDate;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -32,7 +34,7 @@ public class Lancamento {
 	
 	@Positive
 	@Column(nullable = false, columnDefinition = "DECIMAL(10, 2)")
-	private double valor;
+	private BigDecimal valor;
 	
 	@NotBlank
 	@NotNull	

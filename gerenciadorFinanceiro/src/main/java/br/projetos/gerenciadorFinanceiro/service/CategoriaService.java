@@ -1,5 +1,6 @@
 package br.projetos.gerenciadorFinanceiro.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -81,7 +82,7 @@ public class CategoriaService {
 		
 		Despesa despesa = (Despesa) categoria;
 		
-		despesa.setMeta(meta.valorMeta());
+		despesa.setMeta(BigDecimal.valueOf(meta.valorMeta()));
 		
 		return CategoriaMapper.toDTOOut(categoriaRepository.save(despesa));
 	}

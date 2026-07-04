@@ -3,6 +3,8 @@ package br.projetos.gerenciadorFinanceiro.unittests.controller.modelAssembler;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import java.math.BigDecimal;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +41,7 @@ class LancamentoModelAssemblerTest {
 	void setUp() throws Exception {
 		assembler = new LancamentoModelAssembler();
 		
-		categoria = new Despesa(1L, "Alimentacao", Status.ATIVO, Double.valueOf(100));
+		categoria = new Despesa(1L, "Alimentacao", Status.ATIVO, BigDecimal.valueOf(100));
 		cartao = new Cartao(1L, "Visa", Status.ATIVO);
 		
 		categoriaDTO = CategoriaMapper.toDTO(categoria);		
@@ -48,7 +50,7 @@ class LancamentoModelAssemblerTest {
 		lancDTO = new LancamentoDTO(1L,
 									"12/09/2025",
 									"Sushi",
-									130,
+									BigDecimal.valueOf(130),
 									categoriaDTO,
 									cartaoDTO);
 		

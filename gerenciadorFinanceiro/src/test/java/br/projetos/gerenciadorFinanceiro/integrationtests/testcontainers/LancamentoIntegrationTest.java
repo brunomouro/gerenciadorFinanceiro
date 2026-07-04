@@ -11,6 +11,8 @@ import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.not;
 
+import java.math.BigDecimal;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -132,7 +134,7 @@ public class LancamentoIntegrationTest extends AbstractIntegrationTest {
         	.header("Authorization", "Bearer " + token )
             .contentType(ContentType.JSON)
             .pathParam("id", id)
-            .body(umLancamentoDTO().withDescricao("Depois").withValor(999.99).build())
+            .body(umLancamentoDTO().withDescricao("Depois").withValor(BigDecimal.valueOf(999.99)).build())
         .when()
             .put("/api/lancamento/altera-lancamento/{id}")
         .then()
@@ -226,7 +228,7 @@ public class LancamentoIntegrationTest extends AbstractIntegrationTest {
     void cenarioDadosInvalidosRejeitados() {
         var lancamentoInvalido = umLancamentoDTO()
             .withDescricao("")  // @NotBlank
-            .withValor(-100)    // @Positive
+            .withValor(BigDecimal.valueOf(-100))    // @Positive
             .build();
 
         given()
@@ -336,7 +338,7 @@ public class LancamentoIntegrationTest extends AbstractIntegrationTest {
                 .contentType(ContentType.JSON)
                 .body(umLancamentoDTO()
                     .withDescricao("Compra mensal " + (i + 1))
-                    .withValor(100.0 * (i + 1))
+                    .withValor(BigDecimal.valueOf(100.0 * (i + 1)))
                     .build())
             .when()
                 .post("/api/lancamento/inclui-lancamento")
@@ -375,7 +377,7 @@ public class LancamentoIntegrationTest extends AbstractIntegrationTest {
             .contentType(ContentType.JSON)
             .body(umLancamentoDTO()
                 .withDescricao("Compra errada")
-                .withValor(50.0)
+                .withValor(BigDecimal.valueOf(50.0))
                 .build())
         .when()
             .post("/api/lancamento/inclui-lancamento")
@@ -391,7 +393,7 @@ public class LancamentoIntegrationTest extends AbstractIntegrationTest {
             .pathParam("id", id)
             .body(umLancamentoDTO()
                 .withDescricao("Compra corrigida")
-                .withValor(150.0)
+                .withValor(BigDecimal.valueOf(150.0))
                 .build())
         .when()
             .put("/api/lancamento/altera-lancamento/{id}")

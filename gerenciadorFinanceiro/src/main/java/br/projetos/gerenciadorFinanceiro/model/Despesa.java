@@ -1,5 +1,7 @@
 package br.projetos.gerenciadorFinanceiro.model;
 
+import java.math.BigDecimal;
+
 import org.hibernate.annotations.SQLDelete;
 
 import br.projetos.gerenciadorFinanceiro.enums.Status;
@@ -19,9 +21,9 @@ import lombok.NoArgsConstructor;
 public class Despesa extends Categoria {
 	
 	@Column(columnDefinition = "DECIMAL(10, 2)")
-	private Double meta;
+	private BigDecimal meta;
 	
-    public Despesa(Long id, String nome, Status status, Double meta) {
+    public Despesa(Long id, String nome, Status status, BigDecimal meta) {
         super(id, nome, status);
         this.meta = meta;
     }

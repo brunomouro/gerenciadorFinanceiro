@@ -1,5 +1,7 @@
 package br.projetos.gerenciadorFinanceiro;
 
+import java.math.BigDecimal;
+
 import br.projetos.gerenciadorFinanceiro.dto.CartaoDTO;
 import br.projetos.gerenciadorFinanceiro.dto.CategoriaDTO;
 import br.projetos.gerenciadorFinanceiro.dto.DespesaDTO;
@@ -24,7 +26,7 @@ public class TestDataBuilder {
     public static class LancamentoDTOBuilder {
         private Long id;
         private String data = "15/01/2025";
-        private double valor = 150.50;
+        private BigDecimal valor = BigDecimal.valueOf(150.50);
         private String descricao = "Compra no supermercado";
         private CategoriaDTO categoria = new CategoriaDTOBuilder().buildDespesaDTO();
         private CartaoDTO cartao = new CartaoDTOBuilder().build();
@@ -39,7 +41,7 @@ public class TestDataBuilder {
             return this;
         }
 
-        public LancamentoDTOBuilder withValor(double valor) {
+        public LancamentoDTOBuilder withValor(BigDecimal valor) {
             this.valor = valor;
             return this;
         }
@@ -134,7 +136,7 @@ public class TestDataBuilder {
     public static class LancamentoBuilder {
         private Long id;
         private String data = "15/01/2025";
-        private double valor = 150.50;
+        private BigDecimal valor = BigDecimal.valueOf(150.50);
         private String descricao = "Compra no supermercado";
         private Categoria categoria = new CategoriaBuilder().buildDespesa();
         private Cartao cartao = new CartaoBuilder().build();
@@ -149,7 +151,7 @@ public class TestDataBuilder {
             return this;
         }
 
-        public LancamentoBuilder withValor(double valor) {
+        public LancamentoBuilder withValor(BigDecimal valor) {
             this.valor = valor;
             return this;
         }
@@ -190,7 +192,7 @@ public class TestDataBuilder {
     public static class CategoriaBuilder {
         private Long id = 1L;
         private String nome = "Alimentação";
-        private double meta = 100.0;
+        private BigDecimal meta = BigDecimal.valueOf(100);
 
         public CategoriaBuilder withId(Long id) {
             this.id = id;
@@ -202,7 +204,7 @@ public class TestDataBuilder {
             return this;
         }
 
-        public CategoriaBuilder withMeta(double meta) {
+        public CategoriaBuilder withMeta(BigDecimal meta) {
             this.meta = meta;
             return this;
         }

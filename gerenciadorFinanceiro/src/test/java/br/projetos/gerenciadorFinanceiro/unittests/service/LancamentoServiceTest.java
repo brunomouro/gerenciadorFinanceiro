@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.math.BigDecimal;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -57,11 +58,11 @@ class LancamentoServiceTest {
 	void setUp() throws Exception {
 		MockitoAnnotations.openMocks( this );
 		
-		categoria = new Despesa(1L, "Alimentacao", Status.ATIVO, Double.valueOf(100));
+		categoria = new Despesa(1L, "Alimentacao", Status.ATIVO, BigDecimal.valueOf(100));
 		cartao = new Cartao(1L, "Visa", Status.ATIVO);
 		lancamento = new Lancamento(1L,
 									"12/09/2025",
-									130,
+									BigDecimal.valueOf(130),
 									"Sushi",
 									categoria,
 									cartao);
@@ -73,7 +74,7 @@ class LancamentoServiceTest {
 		lancDTO = new LancamentoDTO(1L,
 									"12/09/2025",
 									"Sushi",
-									130,
+									BigDecimal.valueOf(130),
 									categoriaDTO,
 									cartaoDTO);
 	}

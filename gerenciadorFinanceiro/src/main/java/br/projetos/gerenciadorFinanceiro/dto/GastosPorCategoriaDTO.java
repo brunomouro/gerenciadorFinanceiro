@@ -1,5 +1,7 @@
 package br.projetos.gerenciadorFinanceiro.dto;
 
-public record GastosPorCategoriaDTO(String nome, double disponivel, double meta, double gastos) {
+import java.math.BigDecimal;
+
+public record GastosPorCategoriaDTO(String nome, BigDecimal disponivel, BigDecimal meta, BigDecimal gastos) {
 
 }
