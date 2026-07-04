@@ -7,7 +7,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: validate
     show-sql: true
 
 logging:
@@ -18,4 +18,4 @@ cors:
   originPatterns: http://localhost:8080,http://localhost:3000
 
 file:
-  upload-dir: /Users/bruno/Downloads
+  upload-dir: ${UPLOAD_DIR}
