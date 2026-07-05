@@ -34,8 +34,10 @@ public class CartaoService {
 	}
 
 	public CartaoDTO consultaCartao(Long id) {
+		System.out.println(id);
 		return CartaoMapper.toDTO(cartaoRepository.findById(id)
-				  					 .orElseThrow(() -> new RecordNotFoundExcepttion(id))); 
+				  					 .orElseThrow(() -> new RecordNotFoundExcepttion(id)));
+		
 	}
 	
 	public CartaoDTO alteraCartao(Long id, CartaoDTO cartao) {
