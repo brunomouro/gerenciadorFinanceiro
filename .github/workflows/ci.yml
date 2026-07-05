@@ -9,6 +9,9 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: gerenciadorFinanceiro
 
     steps:
       - name: Checkout do código
@@ -35,6 +38,8 @@ jobs:
         run: mvn clean verify -Dspring.profiles.active=test
         env:
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          EMAIL_USERNAME: ${{ secrets.EMAIL_USERNAME }}
+          EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
 
       - name: Build da imagem Docker
         run: |
