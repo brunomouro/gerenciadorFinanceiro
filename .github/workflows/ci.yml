@@ -41,19 +41,16 @@ jobs:
           EMAIL_USERNAME: ${{ secrets.EMAIL_USERNAME }}
           EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
 
+      - name: Build da imagem Docker
+        run: |
+          IMAGE_NAME=$(echo "ghcr.io/${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
+          docker build -t ${IMAGE_NAME}:${{ github.sha }} -t ${IMAGE_NAME}:latest .
+          echo "IMAGE_NAME=${IMAGE_NAME}" >> $GITHUB_ENV
+
       - name: Push para GitHub Container Registry
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: |
-          IMAGE_NAME=$(echo "ghcr.io/${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
-
           echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io \
             -u ${{ github.actor }} --password-stdin
-
-          docker tag gerenciador-financeiro:${{ github.sha }} \
-            ${IMAGE_NAME}:${{ github.sha }}
-
-          docker tag gerenciador-financeiro:${{ github.sha }} \
-            ${IMAGE_NAME}:latest
-
           docker push ${IMAGE_NAME}:${{ github.sha }}
           docker push ${IMAGE_NAME}:latest
